@@ -1,4 +1,4 @@
-# fetchy
+# Fetchy
 Async HTTPS fetch API built on pasts.
 
 ## Supported Platforms
