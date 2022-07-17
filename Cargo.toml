@@ -1,7 +1,30 @@
+# Copyright © 2022 The Fetchy Contributors.
+#
+# Licensed under any of:
+#  - Apache License, Version 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+#  - Boost Software License, Version 1.0 (https://www.boost.org/LICENSE_1_0.txt)
+#  - MIT License (https://mit-license.org/)
+# At your choosing (See accompanying files LICENSE_APACHE_2_0.txt,
+# LICENSE_MIT.txt and LICENSE_BOOST_1_0.txt).
+
 [package]
 name = "fetchy"
 version = "0.1.0"
 edition = "2021"
+description = "Async HTTPS fetch API built on pasts."
+repository = "https://github.com/ardaku/fetchy"
+documentation = "https://docs.rs/fetchy"
+homepage = "https://github.com/ardaku/fetchy/blob/stable/CHANGELOG.md"
+include = ["/src/**", "/examples/**", "/README.md"]
+keywords = ["futures", "fetch", "pasts", "io", "net"]
+categories = [
+    "asynchronous",
+    "wasm",
+    "hardware-support",
+    "os",
+    "web-programming::http-client"
+]
+readme = "README.md"
 
 [dependencies.js-sys]
 version = "0.3"
