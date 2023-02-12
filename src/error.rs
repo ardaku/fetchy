@@ -85,10 +85,10 @@ pub enum Error {
     Unknown,
 }
 
-impl From<u16> for Error {
-    fn from(other: u16) -> Self {
+impl Error {
+    pub(crate) fn new(http_code: u16) -> Self {
         use Error::*;
-        match other {
+        match http_code {
             400 => Request,
             401 => Auth,
             403 => Permission,

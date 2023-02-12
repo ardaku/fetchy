@@ -91,7 +91,7 @@ impl Notifier for Fetch {
             if let Ok(response) = response {
                 let response = web_sys::Response::from(response);
                 if !response.ok() {
-                    return Ready(Err(Error::from(response.status())));
+                    return Ready(Err(Error::new(response.status())));
                 }
                 let reader = if let Some(body) = response.body() {
                     body.get_reader()
