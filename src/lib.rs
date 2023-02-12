@@ -19,15 +19,14 @@
     unreachable_pub,
     unused_extern_crates,
     unused_qualifications,
-    variant_size_differences,
-
+    variant_size_differences
 )]
 
+mod builder;
 mod error;
 mod fetch;
-mod method;
-mod builder;
 mod header;
+mod method;
 
 #[cfg(feature = "web")]
 mod web;
@@ -45,9 +44,9 @@ use pasts::{prelude::*, Join};
 use web as inner;
 
 pub use self::{
+    builder::FetchBuilder,
     error::{Error, Result},
     fetch::Fetch,
-    builder::FetchBuilder,
-    method::Method,
     header::Header,
+    method::Method,
 };

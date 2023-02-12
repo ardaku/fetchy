@@ -21,7 +21,7 @@ impl<'a> FetchBuilder<'a> {
 
     /// Send data in the body of the request.
     pub fn body(mut self, data: impl Into<Vec<u8>>) -> Self {
-        self.data = data.into(); 
+        self.data = data.into();
 
         self
     }
@@ -35,7 +35,7 @@ impl<'a> FetchBuilder<'a> {
 
     /// Initiate the HTTP request.
     pub fn fetch(self) -> Fetch {
-        todo!()
+        Fetch::new(self.url, self.method, self.headers, self.data)
     }
 
     pub(crate) fn new(url: &'a str) -> Self {

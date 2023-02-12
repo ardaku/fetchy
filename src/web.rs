@@ -1,5 +1,5 @@
 use wasm_bindgen::{JsCast, JsValue};
-use web_sys::Headers;
+use web_sys::{Blob, Headers};
 
 use super::*;
 
@@ -16,13 +16,43 @@ pub(crate) struct Fetch {
 }
 
 impl Fetch {
-    pub(crate) fn new(url: &str, method: Method, _payload: Vec<u8>) -> Self {
+    pub(crate) fn new(
+        url: &str,
+        method: Method,
+        headers: Vec<Header<'_>>,
+        body: Vec<u8>,
+    ) -> Self {
         // unwrap: Should always be a window in the DOM.
         let window = web_sys::window().unwrap();
 
         let mut init = web_sys::RequestInit::new();
-        let headers = Headers::new().unwrap();
-        let init = init.method(method.as_str()).headers(&headers);
+        let headers = {
+            let headers_js = Headers::new().unwrap();
+            let mut name = String::new();
+            let mut value = String::new();
+
+            for header in headers.iter() {
+                header.push_name(&mut name);
+                header.push_value(&mut value);
+                headers_js.append(&name, &value).unwrap();
+                name.clear();
+                value.clear();
+            }
+
+            headers_js
+        };
+        let blob = {
+            let body = js_sys::Uint8Array::from(body.as_slice());
+            let array = js_sys::Array::new();
+
+            array.push(&body.into());
+
+            Blob::new_with_u8_array_sequence(&array).unwrap()
+        };
+        let init = init
+            .method(method.as_str())
+            .headers(&headers)
+            .body(Some(&blob));
         let promise = window.fetch_with_str_and_init(url, init);
         let future = wasm_bindgen_futures::JsFuture::from(promise);
         let init = Box::<Option<_>>::pin(future.fuse());
