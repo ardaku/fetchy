@@ -14,9 +14,9 @@ use wasm_bindgen::{JsCast, JsValue};
 
 pub(crate) struct Fetch {
     /// Promise backed notifier for initiating fetch request
-    init: Local<'static, std::result::Result<JsValue, JsValue>>,
+    init: LocalBoxNotifier<'static, Result<JsValue, JsValue>>,
     /// Promise backed notifier for next incoming data
-    read: Option<Local<'static, std::result::Result<JsValue, JsValue>>>,
+    read: Option<LocalBoxNotifier<'static, Result<JsValue, JsValue>>>,
     /// Function to produce next read promise
     next: Option<js_sys::Function>,
     /// Value for JS `this` to pass to the function
@@ -52,7 +52,7 @@ impl Notifier for Fetch {
 
     fn poll_next(
         mut self: Pin<&mut Self>,
-        cx: &mut Exec<'_>,
+        cx: &mut Task<'_>,
     ) -> Poll<Self::Event> {
         if let Some(ref mut read) = self.read {
             // Streaming

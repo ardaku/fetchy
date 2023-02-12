@@ -25,7 +25,7 @@ use tls as inner;
 use pasts::{prelude::*, Join};
 
 /// Result type alias for fetch errors
-pub type Result<T> = std::result::Result<T, Error>;
+pub type Result<T = (), E = Error> = std::result::Result<T, E>;
 
 /// Method for fetching
 pub enum Method {
@@ -101,9 +101,9 @@ impl Notifier for Fetch {
 
     fn poll_next(
         mut self: Pin<&mut Self>,
-        cx: &mut Exec<'_>,
+        task: &mut Task<'_>,
     ) -> Poll<Self::Event> {
-        Pin::new(&mut self.0).poll_next(cx)
+        Pin::new(&mut self.0).poll_next(task)
     }
 }
 
