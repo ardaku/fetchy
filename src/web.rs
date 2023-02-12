@@ -1,7 +1,7 @@
-use super::*;
-
-use web_sys::Headers;
 use wasm_bindgen::{JsCast, JsValue};
+use web_sys::Headers;
+
+use super::*;
 
 pub(crate) struct Fetch {
     /// Promise backed notifier for initiating fetch request
@@ -53,7 +53,7 @@ impl Notifier for Fetch {
                 return Pending;
             };
 
-            let object: js_sys::Object = params.clone().dyn_into().unwrap();
+            let object: js_sys::Object = params.dyn_into().unwrap();
             let list = js_sys::Object::entries(&object);
             let found = list.find(&mut |value, _index, _array| {
                 let array: js_sys::Array = value.dyn_into().unwrap();
@@ -105,7 +105,7 @@ impl Notifier for Fetch {
                 );
 
                 let read_value = js_sys::Object::entries(
-                    &js_sys::Object::try_from(&read_value).unwrap(),
+                    js_sys::Object::try_from(&read_value).unwrap(),
                 );
 
                 let found = read_value.find(&mut |value, _index, _array| {
