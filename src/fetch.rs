@@ -1,6 +1,7 @@
 use super::*;
 
 /// A [`Notifier`] for fetching data from a URL.
+#[derive(Debug)]
 pub struct Fetch(inner::Fetch);
 
 impl Fetch {
@@ -8,6 +9,11 @@ impl Fetch {
     // FIXME: Use payload
     pub fn new(url: &str, method: Method, _payload: Vec<u8>) -> Self {
         Self(inner::Fetch::new(url, method, _payload))
+    }
+
+    /// Get a builder for configuring the fetch request.
+    pub fn builder(url: &str) -> FetchBuilder<'_> {
+        FetchBuilder::new(url)
     }
 
     /// Fetch the entire contents all at once.

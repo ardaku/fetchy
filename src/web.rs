@@ -3,6 +3,7 @@ use web_sys::Headers;
 
 use super::*;
 
+#[derive(Debug)]
 pub(crate) struct Fetch {
     /// Promise backed notifier for initiating fetch request
     init: LocalBoxNotifier<'static, Result<JsValue, JsValue>>,
@@ -15,7 +16,7 @@ pub(crate) struct Fetch {
 }
 
 impl Fetch {
-    pub fn new(url: &str, method: Method, _payload: Vec<u8>) -> Self {
+    pub(crate) fn new(url: &str, method: Method, _payload: Vec<u8>) -> Self {
         // unwrap: Should always be a window in the DOM.
         let window = web_sys::window().unwrap();
 

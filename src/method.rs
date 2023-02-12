@@ -1,4 +1,5 @@
 /// Method for fetching
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum Method {
     /// GET: Retrieve data
     Get = 0,

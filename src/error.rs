@@ -1,9 +1,10 @@
-use std::result::Result as StdResult;
+use core::result::Result as CoreResult;
 
 /// Result type alias for fetch errors
-pub type Result<T = (), E = Error> = StdResult<T, E>;
+pub type Result<T = (), E = Error> = CoreResult<T, E>;
 
 /// Error while fetching
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum Error {
     /// Network error
     Network,
