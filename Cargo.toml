@@ -29,16 +29,22 @@ readme = "README.md"
 
 [dependencies.js-sys]
 version = "0.3"
+optional = true
 
 [dependencies.pasts]
 version = "0.12"
-features = ["web"]
+
+[dependencies.rustls]
+version = "0.20"
+optional = true
 
 [dependencies.wasm-bindgen]
 version = "0.2"
+optional = true
 
 [dependencies.wasm-bindgen-futures]
 version = "0.4"
+optional = true
 
 [dependencies.web-sys]
 version = "0.3"
@@ -52,4 +58,15 @@ features = [
     "Request",
     "RequestInit",
     "Window",
+]
+optional = true
+
+[features]
+default = [] # "rustls"]
+web = [
+    "pasts/web",
+    "dep:web-sys",
+    "dep:wasm-bindgen-futures",
+    "dep:wasm-bindgen",
+    "dep:js-sys",
 ]
