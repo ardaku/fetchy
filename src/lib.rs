@@ -39,7 +39,7 @@ mod tls;
 use tls as inner;
 */
 
-use pasts::{prelude::*, Join};
+use pasts::{prelude::*, Loop};
 #[cfg(feature = "web")]
 use web as inner;
 

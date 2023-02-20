@@ -6,9 +6,9 @@ use super::*;
 #[derive(Debug)]
 pub(crate) struct Fetch {
     /// Promise backed notifier for initiating fetch request
-    init: LocalBoxNotifier<'static, Result<JsValue, JsValue>>,
+    init: LocalBoxNotify<'static, Result<JsValue, JsValue>>,
     /// Promise backed notifier for next incoming data
-    read: Option<LocalBoxNotifier<'static, Result<JsValue, JsValue>>>,
+    read: Option<LocalBoxNotify<'static, Result<JsValue, JsValue>>>,
     /// Function to produce next read promise
     next: Option<js_sys::Function>,
     /// Value for JS `this` to pass to the function
@@ -69,7 +69,7 @@ impl Fetch {
     }
 }
 
-impl Notifier for Fetch {
+impl Notify for Fetch {
     type Event = Result<Option<Vec<u8>>>;
 
     fn poll_next(

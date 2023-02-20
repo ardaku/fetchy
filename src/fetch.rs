@@ -1,6 +1,6 @@
 use super::*;
 
-/// A [`Notifier`] for fetching data from a URL.
+/// A [`Notify`] for fetching data from a URL.
 #[derive(Debug)]
 pub struct Fetch(inner::Fetch);
 
@@ -43,13 +43,13 @@ impl Fetch {
             }
         }
 
-        Join::new(&mut All(self, Vec::new()))
+        Loop::new(&mut All(self, Vec::new()))
             .on(|s| &mut s.0, fill)
             .await
     }
 }
 
-impl Notifier for Fetch {
+impl Notify for Fetch {
     type Event = Result<Option<Vec<u8>>>;
 
     fn poll_next(
