@@ -1,6 +1,6 @@
 [package]
 name = "fetchy"
-version = "0.2.0"
+version = "0.2.1"
 license = "Apache-2.0 OR BSL-1.0 OR MIT"
 edition = "2021"
 description = "Async HTTPS fetch API built on pasts."
@@ -17,6 +17,9 @@ categories = [
     "web-programming::http-client"
 ]
 readme = "README.md"
+
+[package.metadata.docs.rs]
+features = ["web"]
 
 [dependencies.js-sys]
 version = "0.3"
