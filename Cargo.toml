@@ -1,6 +1,6 @@
 [package]
 name = "fetchy"
-version = "0.2.1"
+version = "0.2.2"
 license = "Apache-2.0 OR BSL-1.0 OR MIT"
 edition = "2021"
 description = "Async HTTPS fetch API built on pasts."
@@ -44,6 +44,7 @@ optional = true
 version = "0.3"
 features = [
     "Blob",
+    "console",
     "Headers",
     "ReadableStream",
     "Response",

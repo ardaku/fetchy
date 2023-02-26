@@ -126,7 +126,7 @@ impl Error {
             507 => Storage,
             508 => Loop,
             510 => Extensions,
-            511 => Network,
+            511 => Net,
             _ => Unknown,
         }
     }

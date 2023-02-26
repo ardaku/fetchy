@@ -41,18 +41,18 @@ impl Fetch {
 
             headers_js
         };
-        let blob = {
+        let body = (!body.is_empty()).then(|| -> JsValue {
             let body = js_sys::Uint8Array::from(body.as_slice());
             let array = js_sys::Array::new();
 
             array.push(&body.into());
 
-            Blob::new_with_u8_array_sequence(&array).unwrap()
-        };
+            Blob::new_with_u8_array_sequence(&array).unwrap().into()
+        });
         let init = init
             .method(method.as_str())
             .headers(&headers)
-            .body(Some(&blob));
+            .body(body.as_ref());
         let promise = window.fetch_with_str_and_init(url, init);
         let future = wasm_bindgen_futures::JsFuture::from(promise);
         let init = Box::<Option<_>>::pin(future.fuse());
@@ -156,6 +156,10 @@ impl Notify for Fetch {
                 self.this = (*reader).clone();
                 self.poll_next(cx)
             } else {
+                web_sys::console::error_2(
+                    &"[fetchy]".to_string().into(),
+                    &response.unwrap_err(),
+                );
                 Ready(Err(Error::Network))
             }
         } else {

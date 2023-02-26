@@ -4,6 +4,14 @@ All notable changes to `fetchy` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://jeronlau.tk/semver/).
 
+## [0.2.2] - 2023-02-26
+### Added
+ - Network error logging
+
+### Fixed
+ - `Net` error being reported as `Network`
+ - GET requests panicking
+
 ## [0.2.1] - 2023-02-20
 ### Fixed
  - Add docs.rs metadata so that docs build
